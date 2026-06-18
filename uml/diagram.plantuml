@@ -1,0 +1,65 @@
+@startuml
+
+interface IFormat {
+    +String ansi()
+    +TextColor(Color) : IFormat
+    +BackgroundColor(Color) : IFormat
+}
+
+class ConsoleManager {
+    -InputStreamReader reader
+    -Stack<IFormat[]> formatStack
+    -String replacementChars
+    -String listSeparator
+    -String listMarker
+
+    +out(Object...)
+    +outln(Object...)
+    +outin(...)
+    +in(...)
+    +push(IFormat...)
+    +pop()
+
+    +listMarker(String)
+    +listSeparator(String)
+    +replacementChars(String)
+
+    +getInstance()
+}
+
+class Markers {
+    -String BULLET
+    -String WHITE_BULLET
+    -String BLACK_SMALL_SQUARE
+    -String WHITE_SMALL_SQUARE
+    -String BLACK_SQUARE
+    -String WHITE_SQUARE
+    -String BLACK_DIAMOND
+    -String WHITE_DIAMOND
+    -String TRIANGULAR_BULLET
+    -String RIGHT_ARROW
+    -String DOUBLE_RIGHT_ARROW
+    -String LEFT_RIGHT_ARROW
+    -String EM_DASH
+    -String EN_DASH
+    -String MIDDLE_DOT
+    -String DEGREE
+    -String PILCROW
+    -String SECTION
+}
+
+class Patterns {
+    -Pattern LATIN
+    -Pattern CYRILLIC
+    -Pattern INTEGER
+    -Pattern DECIMAL
+    -Pattern MATH
+    -Pattern SPEC
+    -Pattern EMAIL
+}
+
+ConsoleManager +-- Markers
+ConsoleManager +-- Patterns
+ConsoleManager --> IFormat
+
+@enduml
